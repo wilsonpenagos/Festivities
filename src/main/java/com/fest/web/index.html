@@ -1,0 +1,216 @@
+<!doctype html>
+<html ng-app>
+	<head>
+		<title>Festivities API AngularJS</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+		<script src="fest.js"></script>
+	</head>
+
+	<body>
+		<h1>
+			<font color="red" size="2" face="Verdana, Arial, Helvetica, sans-serif">This is an RESTful API that will
+				let you Query, Add and Modify Festivies.</font>
+		</h1>
+
+		<p>
+			<font color="red" size="2" face="Verdana, Arial, Helvetica, sans-serif">You can select all existent
+				festivities, including those loaded from the
+				festivities.XML on your system User folder and those you have included yourself
+				from this API, using this button...</font>
+		</p>
+
+		<p>
+			<BUTTON TYPE="button" value="Button" style="BACKGROUND-COLOR: #006699"
+				onClick="submitQueryAll();">
+				<font color="white" face="univers 57 condense blanca" size="1">
+					<B>Consult all Festivities</B>
+				</font>
+			</BUTTON>
+		</p>
+
+		<p>
+			<font color="red" size="2" face="Verdana, Arial, Helvetica, sans-serif">Or, you can search for any
+				existent festivity that correspond to any of the
+				characteristics you describe in the boxes, using this button:</font>
+		</p>
+
+		<table BORDER="0" CELLSPACING="1" CELLPADDING="4" WIDTH="50%">
+			<tr>
+				<td>
+					<font face="Verdana, Arial, Helvetica, sans-serif" size="2"
+						color="#006699">Name:</font>
+				</td>
+				<td>
+					<input name="nameDataSearch" id="nameDataSearch" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<font face="Verdana, Arial, Helvetica, sans-serif" size="2"
+						color="#006699">Start Date:</font>
+				</td>
+				<td>
+					<input name="startDataSearch" id="startDataSearch" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<font face="Verdana, Arial, Helvetica, sans-serif" size="2"
+						color="#006699">End Date:</font>
+				</td>
+				<td>
+					<input name="endDataSearch" id="endDataSearch" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<font face="Verdana, Arial, Helvetica, sans-serif" size="2"
+						color="#006699">Place:</font>
+				</td>
+				<td>
+					<input name="placeDataSearch" id="placeDataSearch" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="CENTER">
+					<BUTTON TYPE="button" value="Button" style="BACKGROUND-COLOR: #006699"
+						onClick="submitQueryBy();">
+						<font color="white" face="univers 57 condense blanca" size="1">
+							<B>Search festivities...</B>
+						</font>
+					</BUTTON>
+				</td>
+			</tr>
+		</table>
+		<p>
+			<font color="red" size="2" face="Verdana, Arial, Helvetica, sans-serif">Use this spaces to create a new
+				festivity from scratch, as log as the values are consistent!</font>
+		</p>
+
+		<table BORDER="0" CELLSPACING="1" CELLPADDING="4" WIDTH="50%">
+			<tr>
+				<td>
+					<font face="Verdana, Arial, Helvetica, sans-serif" size="2"
+						color="#006699">Name:</font>
+				</td>
+				<td>
+					<input name="nameDataCreate" id="nameDataCreate" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<font face="Verdana, Arial, Helvetica, sans-serif" size="2"
+						color="#006699">Start Date:</font>
+				</td>
+				<td>
+					<input name="startDataCreate" id="startDataCreate" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<font face="Verdana, Arial, Helvetica, sans-serif" size="2"
+						color="#006699">End Date:</font>
+				</td>
+				<td>
+					<input name="endDataCreate" id="endDataCreate" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<font face="Verdana, Arial, Helvetica, sans-serif" size="2"
+						color="#006699">Place:</font>
+				</td>
+				<td>
+					<input name="placeDataCreate" id="placeDataCreate" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="CENTER">
+					<BUTTON TYPE="button" value="Button" style="BACKGROUND-COLOR: #006699"
+						onClick="submitCreate();">
+						<font color="white" face="univers 57 condense blanca" size="1">
+							<B>Create Festivity</B>
+						</font>
+					</BUTTON>
+				</td>
+			</tr>
+		</table>
+		<p>
+			<font color="red" size="2" face="Verdana, Arial, Helvetica, sans-serif">You can also update any of the
+				listed festivities by directly modifying the desired value and using the "Update" button next to 
+				the place description.</font>
+		</p>
+		<div id = "MainFestDiv" >
+			<table BORDER="0" CELLSPACING="1" CELLPADDING="4">
+				<tr BGCOLOR="#EFEFEF">
+					<td align="CENTER" bgcolor="#EFEFEF" colspan=5>
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="3"
+							color="#006699">FESTIVITIES!</font>
+					</td>
+				</tr>
+				<tr BGCOLOR="#EFEFEF">
+					<td VALIGN="BOTTOM" align="center">
+						<div align="center">
+							<b>
+								<font face="Verdana, Arial, Helvetica, sans-serif" size="1"
+									color="#006699">Name</font>
+							</b>
+						</div>
+					</td>
+					<td VALIGN="BOTTOM" align="center">
+						<div align="center">
+							<b>
+								<font face="Verdana, Arial, Helvetica, sans-serif" size="1"
+									color="#006699">Start Date</font>
+							</b>
+						</div>
+					</td>
+					<td VALIGN="BOTTOM" align="center">
+						<div align="center">
+							<b>
+								<font face="Verdana, Arial, Helvetica, sans-serif" size="1"
+									color="#006699">End Date</font>
+							</b>
+						</div>
+					</td>
+					<td VALIGN="BOTTOM" align="center">
+						<div align="center">
+							<b>
+								<font face="Verdana, Arial, Helvetica, sans-serif" size="1"
+									color="#006699">Place</font>
+							</b>
+						</div>
+					</td>
+					<td bgcolor="#EFEFEF">&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#EFEFEF">
+						<input name="nameDataList" id="nameDataList" size="25" value=""/>
+					</td>
+					<td bgcolor="#EFEFEF">
+						<input name="startDataList" id="startDataList" size="25" value=""/>
+					</td>
+					<td bgcolor="#EFEFEF">
+						<input name="endDataList" id="endDataList" size="25" value=""/>
+					</td>
+					<td bgcolor="#EFEFEF">
+						<input name="placeDataList" id="placeDataList" size="25" value=""/>
+					</td>
+					<td bgcolor="#EFEFEF">
+						<BUTTON TYPE="button" value="Button" style="BACKGROUND-COLOR: #006699" onClick="updateFest(idDataList);">
+							<font color="white" face="univers 57 condense blanca" size="1">
+								<B>Update</B>
+							</font>
+						</BUTTON>
+					</tr>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>
+
+<SCRIPT LANGUAGE="JavaScript1.1">
+	fillMainTable("");
+</script>
